@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:45:12 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/02 12:38:17 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:03:49 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,70 @@ void	min_keyhook(int keycode, t_data *cub)
 	}
 }
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}		t_point;
+
+void	draw_line(t_point p1, t_point p2, void *mlx_ptr, void *win_ptr)
+{
+	int		dx;
+	int		dy;
+	int		steps;
+	float	xIncrement;
+	float	yIncrement;
+	float	x;
+	float	y;
+
+	dx = p2.x - p1.x;
+	dy = p2.y - p1.y;
+	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	xIncrement = dx / (float)steps;
+	yIncrement = dy / (float)steps;
+	x = p1.x;
+	y = p1.y;
+	for (int i = 0; i <= steps; i++)
+	{
+		mlx_pixel_put(mlx_ptr, win_ptr, x, y, 0x00ff00);
+		// Assuming the line color is white (0xFFFFFF)
+		x += xIncrement;
+		y += yIncrement;
+	}
+}
+
+void	rays(t_data cub, int *t)
+{
+	t[2] = ray_ver(cub, t);
+	t[5] = ray_hor(cub, t);
+	if (t[5] - t[2] > 0)
+	{
+		draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub.mlx,
+			cub.mlx_win);
+		// while ((cub.p_x >= 0 && cub.p_x < t[0]) && ((cub.p_y >= 0
+		// 			&& cub.p_y < t[1])))
+		// {
+		// 	mlx_pixel_put(cub.mlx, cub.mlx_win, cub.p_x, cub.p_y, 0x00ff00);
+		// 	cub.p_x += cos(cub.th);
+		// 	cub.p_y += sin(cub.th);
+		// }
+	}
+	else
+	{
+		draw_line((t_point){t[3], t[4]}, (t_point){cub.p_x, cub.p_y}, cub.mlx,
+			cub.mlx_win);
+		// while ((cub.p_x >= 0 && cub.p_x < t[3]) && ((cub.p_y >= 0
+		// 			&& cub.p_y < t[4])))
+		// {
+		// 	mlx_pixel_put(cub.mlx, cub.mlx_win, cub.p_x, cub.p_y, 0x00ff00);
+		// 	cub.p_x += cos(cub.th);
+		// 	cub.p_y += sin(cub.th);
+		// }
+	}
+}
 int	key_hook(int keycode, t_data *cub)
 {
+	int t[6];
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x000000);
 	min_keyhook(keycode, cub);
 	if (keycode == 124)
@@ -89,8 +151,7 @@ int	key_hook(int keycode, t_data *cub)
 			cub->th = 2 * M_PI;
 		cub->th -= 0.1;
 	}
-	// ray_ver(cub);
-	ray_hor(cub);
+	rays((*cub), t);
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 	return (0);
 }

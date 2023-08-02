@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/02 10:52:48 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:50:02 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct l_data
 int			key_hook(int keycode, t_data *cub);
 void		draw_carre(int x, int y, t_data cub);
 void		put_plyr(int x, int y, t_data cub, int clr);
-void		ray_hor(t_data *cub);
-void		ray_ver(t_data *cub);
+int			ray_hor(t_data cub, int *t);
+int			ray_ver(t_data cub, int *t);
+int			ft_strlen(char *s);
 #endif

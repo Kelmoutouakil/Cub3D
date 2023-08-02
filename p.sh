@@ -1,1 +1,1 @@
-git add . && git commit -m "push" && git push
+make fclean && git add . && git commit -m "push" && git push

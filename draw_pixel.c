@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_pixel.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 16:49:06 by kelmouto          #+#    #+#             */
+/*   Updated: 2023/08/01 15:41:42 by kelmouto         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3D.h"
+
+void	put_plyr(int x, int y, t_data cub, int clr)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < 6)
+	{
+		j = 0;
+		while (j < 6)
+		{
+			mlx_pixel_put(cub.mlx, cub.mlx_win, x - 6 / 2 + i, y - 6 / 2 + j,
+				clr);
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < 10)
+	{
+		mlx_pixel_put(cub.mlx, cub.mlx_win, cub.p_x, cub.p_y, clr);
+		cub.p_x += cos(cub.th);
+		cub.p_y += sin(cub.th);
+		i++;
+	}
+}
+
+void	draw_carre(int x, int y, t_data cub)
+{
+	int i;
+	int j;
+
+	i = 1;
+	while (i < S_C)
+	{
+		j = 1;
+		while (j < S_C)
+		{
+			mlx_pixel_put(cub.mlx, cub.mlx_win, x * S_C + i, y * S_C + j,
+				0xffffff);
+			j++;
+		}
+		i++;
+	}
+}

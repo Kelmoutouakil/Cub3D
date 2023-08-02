@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:45:12 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/02 09:55:33 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:38:17 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,19 @@ int	key_hook(int keycode, t_data *cub)
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x000000);
 	min_keyhook(keycode, cub);
 	if (keycode == 124)
+	{
+		if (cub->th > 2 * M_PI)
+			cub->th = 0;
 		cub->th += 0.1;
+	}
 	if (keycode == 123)
+	{
+		if (cub->th <= 0)
+			cub->th = 2 * M_PI;
 		cub->th -= 0.1;
-	ray_ver(cub);
+	}
+	// ray_ver(cub);
+	ray_hor(cub);
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 	return (0);
 }

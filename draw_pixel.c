@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:49:06 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/01 15:41:42 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/02 11:10:39 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	put_plyr(int x, int y, t_data cub, int clr)
 		i++;
 	}
 	i = 0;
-	while (i < 10)
+	while ((cub.p_x >= 0 && cub.p_x < cub.w) && ((cub.p_y >= 0
+				&& cub.p_y < cub.h)))
 	{
 		mlx_pixel_put(cub.mlx, cub.mlx_win, cub.p_x, cub.p_y, clr);
 		cub.p_x += cos(cub.th);

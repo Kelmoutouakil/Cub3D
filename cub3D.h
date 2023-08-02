@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/02 09:41:05 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/02 10:52:48 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct l_data
 	void	*mlx_win;
 	double	th;
 	char	*p[10];
+	int		w;
+	int		h;
 }			t_data;
 
 int			key_hook(int keycode, t_data *cub);

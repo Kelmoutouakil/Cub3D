@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:37:34 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/02 16:06:46 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:39:40 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ray_ver(t_data cub, int *t)
 {
 	int	tmp;
 
-	int r_x, r_y, dx, dy, i, j;
+	double r_x, r_y, dx, dy;
+	int i, j;
 	tmp = (int)(cub.p_x / S_C) * S_C;
 	if (cub.th < M_PI / 2 || cub.th > 3 * M_PI / 2)
 		r_x = tmp + S_C;
@@ -56,7 +57,8 @@ int	ray_hor(t_data cub, int *t)
 {
 	int	tmp;
 
-	int r_x, r_y, dx, dy, i, j;
+	double r_x, r_y, dx, dy;
+	int i, j;
 	tmp = (int)(cub.p_y / S_C) * S_C;
 	r_y = tmp;
 	if (cub.th < M_PI)
@@ -74,16 +76,16 @@ int	ray_hor(t_data cub, int *t)
 		dy *= -1;
 	i = r_x / S_C;
 	j = r_y / S_C;
-	if (cub.th > M_PI)
+	if (cub.th > M_PI && cub.th < 2 * M_PI)
 		j--;
-	while (i > 0 && i < (ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
-				/ S_C)) && cub.p[j][i] != '1')
+	while ((i > 0 && i < ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
+				/ S_C)) && (cub.p[j][i] != '1'))
 	{
 		r_x += dx;
 		r_y += dy;
 		i = r_x / S_C;
 		j = r_y / S_C;
-		if (cub.th > M_PI)
+		if (cub.th > M_PI && cub.th < 2 * M_PI)
 			j--;
 	}
 	t[3] = r_x;

@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:43:33 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/09 14:17:33 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/13 13:42:41 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ void	fill_map(char **p)
 	p[i++] = strdup("1111111111111111");
 	p[i] = NULL;
 }
+int	ft_close(t_data *cub)
+{
+	(void)cub;
+	exit(0);
+	return (0);
+}
+
 int	main(void)
 {
 	int		i;
@@ -45,7 +52,7 @@ int	main(void)
 
 	j = 0;
 	i = 0;
-	cub.th = 5 * M_PI / 3;
+	cub.th = M_PI;
 	cub.mlx = mlx_init();
 	fill_map(cub.p);
 	cub.w = ft_strlen(cub.p[0]) * S_C;
@@ -70,5 +77,6 @@ int	main(void)
 		i++;
 	}
 	mlx_hook(cub.mlx_win, 2, 0, key_hook, &cub);
+	mlx_hook(cub.mlx_win, 17, 0, ft_close, &cub);
 	mlx_loop(cub.mlx);
 }

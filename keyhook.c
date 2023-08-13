@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 16:45:12 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/09 16:03:29 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:13:33 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ typedef struct s_point
 
 void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 {
-	int		dx;
-	int		dy;
+	float	dx;
+	float	dy;
 	int		steps;
 	float	xIncrement;
 	float	yIncrement;
@@ -122,13 +122,13 @@ void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
-	if (abs(dx) > abs(dy))
+	if (fabs(dx) > fabs(dy))
 	{
-		steps = abs(dx);
+		steps = fabs(dx);
 	}
 	else
 	{
-		steps = abs(dy);
+		steps = fabs(dy);
 	}
 	if (steps == 0)
 		return ;
@@ -148,12 +148,20 @@ void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 
 void	rays(t_data cub, int *t, int clr)
 {
+
 	t[2] = ray_ver(cub, t);
 	t[5] = ray_hor(cub, t);
 	if (t[5] - t[2] > 0)
-		draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+		{
+			draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+			printf(" x1 : %d y1 : %d\n",t[0],t[1]);
+		}
 	else
-		draw_line((t_point){t[3], t[4]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+		{
+			printf( " cub.th  :   %f\n",cub.th);
+			draw_line((t_point){t[3], t[4]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+			printf(" x2 : %d y2 : %d\n",t[3],t[4]);
+		}
 }
 
 void	func(t_data cub, int clr)
@@ -164,17 +172,16 @@ void	func(t_data cub, int clr)
 	while (i < cub.w / 2)
 	{
 		cub.th -= (M_PI / 3) / cub.w;
-		if (cub.th - ((M_PI / 3) / cub.w) < 0)
+		if (cub.th < 0)
 			cub.th = 2 * M_PI;
 		i++;
 	}
 	i = 0;
-	while (i < cub.w)
+	while (i < cub.w /4)
 	{
-		printf(" %f\n", cub.th);
 		rays((cub), cub.t, clr);
 		cub.th += (M_PI / 3) / cub.w;
-		if (cub.th + ((M_PI / 3) / cub.w) > 2 * M_PI)
+		if (cub.th > 2 * M_PI)
 			cub.th = 0;
 		i++;
 	}
@@ -200,7 +207,6 @@ int	key_hook(int keycode, t_data *cub)
 		else
 			cub->th -= 0.1;
 	}
-
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 	func(*cub, 0x00ff00);
 	return (0);

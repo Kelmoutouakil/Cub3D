@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:37:34 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/08 18:39:40 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:57:50 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ray_ver(t_data cub, int *t)
 	int i, j;
 	tmp = (int)(cub.p_x / S_C) * S_C;
 	if (cub.th < M_PI / 2 || cub.th > 3 * M_PI / 2)
-		r_x = tmp + S_C;
+			r_x = tmp + S_C;
 	else
 		r_x = tmp;
 	dx = fabs(r_x - cub.p_x);
@@ -60,9 +60,10 @@ int	ray_hor(t_data cub, int *t)
 	double r_x, r_y, dx, dy;
 	int i, j;
 	tmp = (int)(cub.p_y / S_C) * S_C;
-	r_y = tmp;
-	if (cub.th < M_PI)
+	if (cub.th < M_PI || cub.th > 2 * M_PI)
 		r_y = tmp + S_C;
+	else
+		r_y = tmp;
 	dy = fabs(r_y - cub.p_y);
 	dx = fabs(dy / tan(cub.th));
 	r_x = cub.p_x + dx;
@@ -88,7 +89,8 @@ int	ray_hor(t_data cub, int *t)
 		if (cub.th > M_PI && cub.th < 2 * M_PI)
 			j--;
 	}
-	t[3] = r_x;
-	t[4] = r_y;
+	t[3] = (int)r_x;
+	t[4] = (int)r_y;
+	printf(" %d   ---  %d\n",t[3],t[4]);
 	return (sqrt(pow(r_x - cub.p_x, 2) + pow(r_y - cub.p_y, 2)));
 }

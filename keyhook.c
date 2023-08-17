@@ -47,12 +47,13 @@ void	min_keyhook(int keycode, t_data *cub)
 {
 	if (ft_check_wall1(cub))
 	{
-		if (keycode == 0)
+		if (keycode == 97)
 		{
-			cub->p_x = cub->p_x + cos(cub->th) * S_P;
-			cub->p_y = cub->p_y + sin(cub->th) * S_P;
+			// cub->p_x = cub->p_x + cos(cub->th) * S_P;
+			// cub->p_y = cub->p_y + sin(cub->th) * S_P;
+			cub->p_x = cub->p_x - 0.1 * S_P;
 		}
-		if (keycode == 13 || keycode == 126)
+		if (keycode == 119 || keycode == 65362)
 		{
 			cub->p_x = cub->p_x + cos(cub->th) * S_P;
 			cub->p_y = cub->p_y + sin(cub->th) * S_P;
@@ -60,12 +61,14 @@ void	min_keyhook(int keycode, t_data *cub)
 	}
 	if (ft_check_wall2(cub) == 1)
 	{
-		if (keycode == 2)
+		if (keycode == 100)
 		{
-			cub->p_x = cub->p_x - cos(cub->th) * S_P;
-			cub->p_y = cub->p_y - sin(cub->th) * S_P;
+			// cub->p_x = cub->p_x - cos(cub->th) * S_P;
+			// cub->p_y = cub->p_y - sin(cub->th) * S_P;
+			cub->p_x = cub->p_x + 0.1 * S_P;
+			
 		}
-		if (keycode == 1 || keycode == 125)
+		if (keycode == 115 || keycode == 65364)
 		{
 			cub->p_x = cub->p_x - cos(cub->th) * S_P;
 			cub->p_y = cub->p_y - sin(cub->th) * S_P;
@@ -73,41 +76,6 @@ void	min_keyhook(int keycode, t_data *cub)
 	}
 }
 
-// typedef struct s_point
-// {
-// 	int	x;
-// 	int	y;
-// }		t_point;
-
-// void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
-// {
-// 	int		dx;
-// 	int		dy;
-// 	int		steps;
-// 	float	xIncrement;
-// 	float	yIncrement;
-// 	float	x;
-// 	float	y;
-
-// 	dx = p2.x - p1.x;
-// 	dy = p2.y - p1.y;
-// 	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-// 	xIncrement = dx / (float)steps;
-// 	yIncrement = dy / (float)steps;
-// 	x = p1.x;
-// 	y = p1.y;
-// 	for (int i = 0; i <= steps; i++)
-// 	{
-// 		mlx_pixel_put(cub.mlx, cub.mlx_win, x, y, clr);
-// 		x += xIncrement;
-// 		y += yIncrement;
-// 	}
-// }
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}		t_point;
 
 void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 {
@@ -139,49 +107,52 @@ void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 	i = 0;
 	while (i <= steps)
 	{
-		mlx_pixel_put(cub.mlx, cub.mlx_win, x, y, clr);
+		my_mlx_pixel_put(&cub, x , y , clr);
+		//mlx_pixel_put(cub.mlx, cub.mlx_win, x, y, clr);
 		x += xIncrement;
 		y += yIncrement;
 		i++;
 	}
 }
 
-void	rays(t_data cub, int *t, int clr)
+void	rays(t_data cub, double *t, int clr)
 {
 
 	t[2] = ray_ver(cub, t);
 	t[5] = ray_hor(cub, t);
 	if (t[5] - t[2] > 0)
-		{
-			draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
-			printf(" x1 : %d y1 : %d\n",t[0],t[1]);
-		}
+	{
+		// if( t[1] > 100)
+		//	printf("\33[1;31mx1 : %d y1: %d dest %f | %f tan: %.20f\33[1;0m\n",(int)t[0],(int)t[1], t[2], t[5], cub.th );
+		draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+	}
 	else
-		{
-			printf( " cub.th  :   %f\n",cub.th);
-			draw_line((t_point){t[3], t[4]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
-			printf(" x2 : %d y2 : %d\n",t[3],t[4]);
-		}
+	{
+		// if(t[4] > 100)
+		//	printf(" x2 : %d y2: %d dest %f | %f tan: %f\n",(int)t[3],(int)t[4],t[5], t[3], cub.th* 180 / M_PI);
+		draw_line((t_point){t[3], t[4]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
+	}
 }
 
 void	func(t_data cub, int clr)
 {
-	int	i;
-
+	int i;
+	double angle_step = (M_PI / 3) / cub.w; 
 	i = 0;
-	while (i < cub.w / 2)
+	while(i < cub.w / 2)
 	{
-		cub.th -= (M_PI / 3) / cub.w;
-		if (cub.th < 0)
-			cub.th = 2 * M_PI;
+		cub.th -= angle_step;
+		if(cub.th < 0)
+			cub.th = 2* M_PI;
 		i++;
 	}
 	i = 0;
-	while (i < cub.w /4)
+	while (i < cub.w)
 	{
+		
 		rays((cub), cub.t, clr);
-		cub.th += (M_PI / 3) / cub.w;
-		if (cub.th > 2 * M_PI)
+		cub.th += angle_step;
+		if(cub.th > 2 *M_PI)
 			cub.th = 0;
 		i++;
 	}
@@ -192,22 +163,24 @@ int	key_hook(int keycode, t_data *cub)
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x000000);
 	func(*cub, 0x000000);
 	min_keyhook(keycode, cub);
-	if (keycode == 124)
+	
+	
+	if (keycode == 65363)
 	{
-		if (cub->th + 0.1 > 2 * M_PI)
+		cub->th += 0.05;
+		if(cub->th > 2 *M_PI)
 			cub->th = 0;
-		else
-			cub->th += 0.1;
 	}
-	if (keycode == 123)
-	{
-		if (cub->th - 0.1 < 0)
-			cub->th = 2 * M_PI;
-
-		else
-			cub->th -= 0.1;
+	if (keycode == 65361)
+	{	
+		cub->th -= 0.05;
+		if(cub->th < 0)
+			cub->th = 2 *M_PI;
 	}
+	if(keycode == 65307)
+		exit(0);
 	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 	func(*cub, 0x00ff00);
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	return (0);
 }

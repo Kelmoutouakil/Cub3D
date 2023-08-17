@@ -28,11 +28,11 @@ void	fill_map(char **p)
 	i = 0;
 	p[i++] = strdup("1111111111111111");
 	p[i++] = strdup("1000000000000001");
-	p[i++] = strdup("1000111111000001");
-	p[i++] = strdup("1000100000000001");
-	p[i++] = strdup("1000100E00000001");
-	p[i++] = strdup("1000000001000001");
-	p[i++] = strdup("1000111111000001");
+	p[i++] = strdup("1000000000000001");
+	p[i++] = strdup("1000000000000001");
+	p[i++] = strdup("1000000E00000001");
+	p[i++] = strdup("1000000000100001");
+	p[i++] = strdup("1000000000000001");
 	p[i++] = strdup("1000000000000001");
 	p[i++] = strdup("1111111111111111");
 	p[i] = NULL;
@@ -43,40 +43,54 @@ int	ft_close(t_data *cub)
 	exit(0);
 	return (0);
 }
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	if( x  >= 0 && x < data->w && y >= 0  &&  y < data->h )
+	{
+		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}
 
 int	main(void)
 {
 	int		i;
 	int		j;
-	t_data	cub;
-
+	t_data	*cub;
+	cub = malloc(sizeof(t_data));
+	if(!cub)
+		return(0);
 	j = 0;
 	i = 0;
-	cub.th = M_PI;
-	cub.mlx = mlx_init();
-	fill_map(cub.p);
-	cub.w = ft_strlen(cub.p[0]) * S_C;
-	cub.h = 450;
-	cub.mlx_win = mlx_new_window(cub.mlx, cub.w, 450, "cub3d");
-	while (cub.p[i])
+	cub->th = 3 * M_PI /2 ;
+	cub->mlx = mlx_init();
+	fill_map(cub->p);
+	cub->w = ft_strlen(cub->p[0]) * S_C;
+	cub->h = 450;
+	cub->mlx_win = mlx_new_window(cub->mlx, cub->w, 450, "cub3d");
+	cub->img = mlx_new_image(cub->mlx, cub->w, cub->h);
+	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,&cub->line_length, &cub->endian);
+	while (cub->p[i])
 	{
 		j = 0;
-		while (cub.p[i][j])
+		while (cub->p[i][j])
 		{
-			if (cub.p[i][j] == '1')
-				draw_carre(j, i, cub);
-			if (cub.p[i][j] == 'E' || cub.p[i][j] == 'W' || cub.p[i][j] == 'N'
-				|| cub.p[i][j] == 'S')
+			if (cub->p[i][j] == '1')
+				draw_carre(j, i, *cub);
+			if (cub->p[i][j] == 'E' || cub->p[i][j] == 'W' || cub->p[i][j] == 'N'
+				|| cub->p[i][j] == 'S')
 			{
-				cub.p_x = j * S_C + S_C / 2;
-				cub.p_y = i * S_C + S_C / 2;
-				put_plyr(cub.p_x, cub.p_y, cub, 0x00ff00);
+				cub->p_x = j * S_C + S_C / 2;
+				cub->p_y = i * S_C + S_C / 2;
+				put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 			}
 			j++;
 		}
 		i++;
 	}
-	mlx_hook(cub.mlx_win, 2, 0, key_hook, &cub);
-	mlx_hook(cub.mlx_win, 17, 0, ft_close, &cub);
-	mlx_loop(cub.mlx);
+	mlx_hook(cub->mlx_win, 2, 3, key_hook, cub);
+	mlx_hook(cub->mlx_win, 17, 0, ft_close, cub);
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
+	mlx_loop(cub->mlx);
 }

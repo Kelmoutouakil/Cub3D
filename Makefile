@@ -1,6 +1,7 @@
-CC=cc
+CC=clang
 NAME=cub3D
-CFLAGS=-Wall -Wextra -Werror #-fsanitize=address -g #-Imlx 
+CFLAGS=-Wall -Wextra -Werror #-fsanitize=address -g3
+
 SRC =  main.c keyhook.c draw_pixel.c rayplayer.c
 
 
@@ -9,7 +10,7 @@ OBJ=$(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean:
 	rm -f $(OBJ)

@@ -2,7 +2,7 @@ CC=clang
 NAME=cub3D
 CFLAGS=-Wall -Wextra -Werror #-fsanitize=address -g3
 
-SRC =  main.c keyhook.c draw_pixel.c rayplayer.c
+SRC =  main.c keyhook.c draw_pixel.c rayplayer.c rays_func.c
 
 
 OBJ=$(SRC:.c=.o)

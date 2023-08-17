@@ -24,7 +24,7 @@ void	put_plyr(int x, int y, t_data cub, int clr)
 		j = 0;
 		while (j < 6)
 		{
-			my_mlx_pixel_put(&cub, x - 6 / 2 +i, y - 6/2 + j, clr);
+			my_mlx_pixel_put(&cub, x - 6 / 2 + i, y - 6 / 2 + j, clr);
 			// mlx_pixel_put(cub.mlx, cub.mlx_win, x - 6 / 2 + i, y - 6 / 2 + j,
 			// 	clr);
 			j++;
@@ -44,7 +44,7 @@ void	draw_carre(int x, int y, t_data cub)
 		j = 1;
 		while (j < S_C)
 		{
-			my_mlx_pixel_put(&cub, x * S_C +i, y * S_C + j, 0xffffff);
+			my_mlx_pixel_put(&cub, x * S_C + i, y * S_C + j, 0xffffff);
 			// mlx_pixel_put(cub.mlx, cub.mlx_win, x * S_C + i, y * S_C + j,
 			// 	0xffffff);
 			j++;

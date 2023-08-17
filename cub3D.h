@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/09 11:32:07 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/17 20:14:04 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ double			ray_hor(t_data cub, double *t);
 double			ray_ver(t_data cub, double *t);
 int			ft_strlen(char *s);
 void		rays(t_data cub, double *t, int clr);
+int	ft_check_d(t_data *cub);
+int	ft_check_a(t_data *cub);
+void	draw_line(t_point p1, t_point p2, t_data cub, int clr);
+void	func_rays(t_data cub, int clr);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 #endif

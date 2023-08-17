@@ -42,32 +42,66 @@ int	ft_check_wall2(t_data *cub)
 		return (1);
 	return (0);
 }
+int  ft_check_a(t_data *cub)
+{
+int	k;
+	int	s;
+	int	e;
+	int	f;
 
+	k = (int)((cub->p_x - cos(cub->th + M_PI /2) * S_P - 3) / S_C);
+	s = (int)((cub->p_y - sin(cub->th + M_PI /2) * S_P - 3) / S_C);
+	e = (int)((cub->p_x - cos(cub->th + M_PI /2) * S_P + 3) / S_C);
+	f = (int)((cub->p_y - sin(cub->th + M_PI /2) * S_P + 3) / S_C);
+	if (cub->p[s][k] != '1' && cub->p[f][e] != '1')
+		return (1);
+	return (0);
+}
+int  ft_check_d(t_data *cub)
+{
+	int	k;
+	int	s;
+	int	e;
+	int	f;
+	k = (int)((cub->p_x + cos(cub->th + M_PI /2) * S_P - 3) / S_C);
+	s = (int)((cub->p_y + sin(cub->th + M_PI /2) * S_P - 3) / S_C);
+	e = (int)((cub->p_x + cos(cub->th + M_PI /2) * S_P + 3) / S_C);
+	f = (int)((cub->p_y + sin(cub->th + M_PI /2) * S_P + 3) / S_C);
+	if (cub->p[s][k] != '1' && cub->p[f][e] != '1')
+		return (1);
+	return (0);
+}
 void	min_keyhook(int keycode, t_data *cub)
 {
-	if (ft_check_wall1(cub))
+
+	if(ft_check_a(cub))
 	{
 		if (keycode == 97)
-		{
-			// cub->p_x = cub->p_x + cos(cub->th) * S_P;
-			// cub->p_y = cub->p_y + sin(cub->th) * S_P;
-			cub->p_x = cub->p_x - 0.1 * S_P;
+		{		
+			
+			cub->p_x = cub->p_x - cos(cub->th + M_PI / 2) *S_P;
+			cub->p_y = cub->p_y - sin(cub->th + M_PI / 2) *S_P;
 		}
-		if (keycode == 119 || keycode == 65362)
+	}
+	if(ft_check_d(cub))
+	{
+		if (keycode == 100)
+		{
+			cub->p_x = cub->p_x + cos(cub->th + M_PI / 2) *S_P;
+			cub->p_y = cub->p_y + sin(cub->th + M_PI / 2) *S_P;
+		}
+	}
+	if (ft_check_wall1(cub))
+	{
+	
+		if (keycode == 65362 || keycode == 119)
 		{
 			cub->p_x = cub->p_x + cos(cub->th) * S_P;
 			cub->p_y = cub->p_y + sin(cub->th) * S_P;
 		}
 	}
 	if (ft_check_wall2(cub) == 1)
-	{
-		if (keycode == 100)
-		{
-			// cub->p_x = cub->p_x - cos(cub->th) * S_P;
-			// cub->p_y = cub->p_y - sin(cub->th) * S_P;
-			cub->p_x = cub->p_x + 0.1 * S_P;
-			
-		}
+	{	
 		if (keycode == 115 || keycode == 65364)
 		{
 			cub->p_x = cub->p_x - cos(cub->th) * S_P;
@@ -75,6 +109,7 @@ void	min_keyhook(int keycode, t_data *cub)
 		}
 	}
 }
+
 
 
 void	draw_line(t_point p1, t_point p2, t_data cub, int clr)

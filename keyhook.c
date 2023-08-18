@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 19:56:37 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/17 20:14:55 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/18 22:11:20 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	min_keyhook(int keycode, t_data *cub)
 
 int	key_hook(int keycode, t_data *cub)
 {
-	put_plyr(cub->p_x, cub->p_y, *cub, 0x000000);
+	//put_plyr(cub->p_x, cub->p_y, *cub, 0x000000);
 	func_rays(*cub, 0x000000);
 	min_keyhook(keycode, cub);
 	if (keycode == 65363)
@@ -87,7 +87,7 @@ int	key_hook(int keycode, t_data *cub)
 	}
 	if (keycode == 65307)
 		exit(0);
-	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
+//	put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 	func_rays(*cub, 0x00ff00);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	return (0);

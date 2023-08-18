@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/18 17:40:09 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:12:25 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ void	rays(t_data cub, double *t, int clr,int i)
 	t[2] = ray_ver(cub, t);
 	t[5] = ray_hor(cub, t);
 	double d = dist_walls(cub);
-	int w_s = (cub.h) / 2 - d / 2;
-	while(w_s < (int)d)
+	int ii = 0;
+	int w_s = (cub.h / 2) - (d / 2);
+	printf("hie%f start:%d\n", d, w_s);
+	while(ii < (int)d)
 	{
 		my_mlx_pixel_put(&cub, i, w_s, clr);
 		w_s++;
+		ii++;
 	}
 	// if (t[5] - t[2] > 0)
 	// 	draw_line((t_point){t[0], t[1]}, (t_point){cub.p_x, cub.p_y}, cub, clr);
@@ -84,7 +87,6 @@ void	func_rays(t_data cub, int clr)
 	while (i < cub.w)
 	{
 		rays((cub), cub.t, clr,i);
-		
 		cub.th += angle_step;
 		if (cub.th > 2 * M_PI)
 			cub.th = 0;

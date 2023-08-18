@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:43:33 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/18 23:15:41 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 00:22:30 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
-
+void	init_ang(t_data *cub, int i, int j)
+{
+	if (cub->p[i][j] == 'N')
+		cub->th = 3 * M_PI / 2;
+	if (cub->p[i][j] == 'S')
+		cub->th = M_PI / 2;
+	if (cub->p[i][j] == 'E')
+		cub->th = 0;
+	if (cub->p[i][j] == 'W')
+		cub->th = M_PI;
+}
 int	main(void)
 {
 	int		i;
@@ -69,7 +79,7 @@ int	main(void)
 		return (0);
 	j = 0;
 	i = 0;
-	cub->th = 3 * M_PI / 2;
+	//cub->th = 3 * M_PI / 2;
 	cub->mlx = mlx_init();
 	fill_map(cub->p);
 	cub->w = ft_strlen(cub->p[0]) * S_C;
@@ -83,13 +93,12 @@ int	main(void)
 		j = 0;
 		while (cub->p[i][j])
 		{
-			
 			if (cub->p[i][j] == 'E' || cub->p[i][j] == 'W'
 				|| cub->p[i][j] == 'N' || cub->p[i][j] == 'S')
 			{
+				init_ang(cub, i, j);
 				cub->p_x = j * S_C + S_C / 2;
 				cub->p_y = i * S_C + S_C / 2;
-				//put_plyr(cub->p_x, cub->p_y, *cub, 0x00ff00);
 			}
 			j++;
 		}

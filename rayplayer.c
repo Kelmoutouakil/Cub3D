@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:37:34 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 17:59:19 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:06:19 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	ray_ver(t_data cub)
 	int		j;
 
 	d[0] = S_C;
-	d[2] = (int)(cub.p_x / S_C) * S_C;
+	d[2] = ((int)(cub.p_x / S_C)) * S_C;
 	(cub.th < M_PI / 2 || cub.th > 3 * M_PI / 2) && (d[2] += S_C);
 	(cub.th > M_PI / 2 && cub.th < 3 * M_PI / 2) && (d[0] *= -1);
 	d[1] = fabs(d[0] * tan(cub.th));
@@ -51,7 +51,7 @@ double	ray_ver(t_data cub)
 	(cos(cub.th) < 0) && (i--);
 	j = d[3] / S_C;
 	while (i > 0 && i < (ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
-				/ S_C)) && cub.p[j][i] != '1')
+			/ S_C)) && cub.p[j][i] != '1')
 		utils_w_v(cub, &i, &j, d);
 	limit_protec(cub, d[2], d[3]);
 	return (sqrt(pow(d[2] - cub.p_x, 2) + pow(d[3] - cub.p_y, 2)));
@@ -64,7 +64,7 @@ double	ray_hor(t_data cub)
 	int		j;
 
 	d[1] = S_C * (-1);
-	d[3] = (int)(cub.p_y / S_C) * S_C;
+	d[3] = ((int)(cub.p_y / S_C)) * S_C;
 	if (cub.th > 0 && cub.th < M_PI)
 		d[3] += S_C;
 	if (cub.th > 0 && cub.th < M_PI)
@@ -80,7 +80,7 @@ double	ray_hor(t_data cub)
 	if (sin(cub.th) < 0)
 		j--;
 	while ((i > 0 && i < ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
-				/ S_C)) && (cub.p[j][i] != '1'))
+			/ S_C)) && (cub.p[j][i] != '1'))
 		utils_w_h(cub, &i, &j, d);
 	limit_prot_hor(cub, d[2], d[3]);
 	return (sqrt(pow(d[2] - cub.p_x, 2) + pow(d[3] - cub.p_y, 2)));

@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 16:36:06 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 16:38:09 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:09:09 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	if (x >= 0 && x < data->w && y >= 0 && y < data->h)
 	{
 		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel
-				/ 8));
+			/ 8));
 		*(unsigned int *)dst = color;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 17:04:33 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:02:30 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	rays(t_data cub, int clr, int i)
 	int		start;
 
 	j = 0;
-	// printf("%f %f %f\n",  cos(fabs(cub.th - cub.ang)), cub.ang, cub.th);
 	cub.t[2] = ray_ver(cub) * cos(cub.th - cub.ang);
 	cub.t[5] = ray_hor(cub) * cos(cub.th - cub.ang);
 	d = dist_walls(cub);

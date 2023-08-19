@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 00:19:29 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:46:51 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,23 @@ void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
 
 void	rays(t_data cub, double *t, int clr,int i)
 {
-	t[2] = ray_ver(cub, t);
-	t[5] = ray_hor(cub, t);
+	int j = 0;
+	//printf("%f %f %f\n",  cos(fabs(cub.th - cub.ang)), cub.ang, cub.th);
+	t[2] = ray_ver(cub, t) * cos(cub.th - cub.ang);
+	t[5] = ray_hor(cub, t) * cos(cub.th - cub.ang);
 	double d = dist_walls(cub);
-	int ii = 0;
-	int w_s = (cub.h / 2) - (d / 2);
-	while(ii < (int)d)
+	int start = (cub.h / 2) - (d / 2);
+
+	while(j < cub.h)
 	{
-		my_mlx_pixel_put(&cub, i, w_s, clr);
-		w_s++;
-		ii++;
+		my_mlx_pixel_put(&cub, i, j, clr);
+		if(j >= start && j <= start + d)
+			clr = 0x696969f;
+		if (j > start + d)
+			clr = 0xD2B48C;
+		j++;
 	}
+	
 }
 
 void	func_rays(t_data cub, int clr)
@@ -81,7 +87,7 @@ void	func_rays(t_data cub, int clr)
 	i = 0;
 	while (i < cub.w)
 	{
-		rays((cub), cub.t, clr,i);
+		rays(cub, cub.t, clr,i);
 		cub.th += angle_step;
 		if (cub.th > 2 * M_PI)
 			cub.th = 0;

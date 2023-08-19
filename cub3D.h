@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/18 17:38:54 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:28:38 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct l_data
 	int		w;
 	int		h;
 	double		t[6];
+	double ang;
 }			t_data;
 
 typedef struct s_point

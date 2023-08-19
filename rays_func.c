@@ -6,68 +6,33 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 15:46:51 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:04:33 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	draw_line(t_point p1, t_point p2, t_data cub, int clr)
+void	rays(t_data cub, int clr, int i)
 {
-	float	dx;
-	float	dy;
-	int		steps;
-	float	xincrement;
-	float	yincrement;
-	float	x;
-	float	y;
-	int		i;
+	int		j;
+	double	d;
+	int		start;
 
-	dx = p2.x - p1.x;
-	dy = p2.y - p1.y;
-	if (fabs(dx) > fabs(dy))
-	{
-		steps = fabs(dx);
-	}
-	else
-	{
-		steps = fabs(dy);
-	}
-	if (steps == 0)
-		return ;
-	xincrement = dx / (float)steps;
-	yincrement = dy / (float)steps;
-	x = p1.x;
-	y = p1.y;
-	i = 0;
-	while (i <= steps)
-	{
-		my_mlx_pixel_put(&cub, x, y, clr);
-		x += xincrement;
-		y += yincrement;
-		i++;
-	}
-}
-
-void	rays(t_data cub, double *t, int clr,int i)
-{
-	int j = 0;
-	//printf("%f %f %f\n",  cos(fabs(cub.th - cub.ang)), cub.ang, cub.th);
-	t[2] = ray_ver(cub, t) * cos(cub.th - cub.ang);
-	t[5] = ray_hor(cub, t) * cos(cub.th - cub.ang);
-	double d = dist_walls(cub);
-	int start = (cub.h / 2) - (d / 2);
-
-	while(j < cub.h)
+	j = 0;
+	// printf("%f %f %f\n",  cos(fabs(cub.th - cub.ang)), cub.ang, cub.th);
+	cub.t[2] = ray_ver(cub) * cos(cub.th - cub.ang);
+	cub.t[5] = ray_hor(cub) * cos(cub.th - cub.ang);
+	d = dist_walls(cub);
+	start = (cub.h / 2) - (d / 2);
+	while (j < cub.h)
 	{
 		my_mlx_pixel_put(&cub, i, j, clr);
-		if(j >= start && j <= start + d)
+		if (j >= start && j <= start + d)
 			clr = 0x696969f;
 		if (j > start + d)
 			clr = 0xD2B48C;
 		j++;
 	}
-	
 }
 
 void	func_rays(t_data cub, int clr)
@@ -87,7 +52,7 @@ void	func_rays(t_data cub, int clr)
 	i = 0;
 	while (i < cub.w)
 	{
-		rays(cub, cub.t, clr,i);
+		rays(cub, clr, i);
 		cub.th += angle_step;
 		if (cub.th > 2 * M_PI)
 			cub.th = 0;

@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 19:56:37 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 15:45:21 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:57:28 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_check_wall2(t_data *cub)
 	return (0);
 }
 
-void	min_keyhook(int keycode, t_data *cub)
+void	w_a_key_conditions(int keycode, t_data *cub)
 {
 	if (ft_check_a(cub) && (keycode == 97))
 	{
@@ -56,6 +56,11 @@ void	min_keyhook(int keycode, t_data *cub)
 		cub->p_x = cub->p_x + cos(cub->th + M_PI / 2) * S_P;
 		cub->p_y = cub->p_y + sin(cub->th + M_PI / 2) * S_P;
 	}
+}
+
+void	min_keyhook(int keycode, t_data *cub)
+{
+	w_a_key_conditions(keycode, cub);
 	if (ft_check_wall1(cub) && (keycode == 65362 || keycode == 119))
 	{
 		cub->p_x = cub->p_x + cos(cub->th) * S_P;
@@ -70,7 +75,7 @@ void	min_keyhook(int keycode, t_data *cub)
 
 int	key_hook(int keycode, t_data *cub)
 {
-	cub->ang = cub->th; 
+	cub->ang = cub->th;
 	func_rays(*cub, 0x000000);
 	min_keyhook(keycode, cub);
 	if (keycode == 65363)
@@ -87,7 +92,7 @@ int	key_hook(int keycode, t_data *cub)
 	}
 	if (keycode == 65307)
 		exit(0);
-	cub->ang = cub->th; 
+	cub->ang = cub->th;
 	func_rays(*cub, 0x87CEFA);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);
 	return (0);

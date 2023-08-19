@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 10:43:33 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 17:28:38 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/19 19:05:08 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	main(void)
 		return (0);
 	init_mlx_func(cub);
 	init_cub(cub);
+	cub->ang = cub->th;
+	func_rays(*cub, 0x87CEFA);
 	mlx_hook(cub->mlx_win, 2, 3, key_hook, cub);
 	mlx_hook(cub->mlx_win, 17, 0, ft_close, cub);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->img, 0, 0);

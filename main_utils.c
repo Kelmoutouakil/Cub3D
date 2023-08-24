@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 16:36:06 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 18:09:09 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:47:07 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void	init_mlx_func(t_data *cub)
 	cub->h = 450;
 	cub->mlx_win = mlx_new_window(cub->mlx, cub->w, 450, "cub3D");
 	cub->img = mlx_new_image(cub->mlx, cub->w, cub->h);
-	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
-		&cub->line_length, &cub->endian);
+	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel, &cub->line_length, &cub->endian);
+	cub->im_g = mlx_xpm_file_to_image(cub->mlx,"./imgs/wall.xpm", &cub->w_tex, &cub->h_tex);
+	if(!cub->im_g)
+		exit(1);
+	cub->ad = mlx_get_data_addr(cub->im_g, &cub->bit, &cub->ln, &cub->edn);
 }

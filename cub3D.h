@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 17:57:44 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:50:15 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 
 typedef struct l_data
 {
+	void *im_g;
+	int w_tex;
+	int h_tex;
+	double y_tex;
+	double x_tex;
 	double	p_x;
 	double	p_y;
 	void	*mlx;
@@ -34,6 +39,11 @@ typedef struct l_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
+	char	*ad;
+	int		bit;
+	int		ln;
+	int		edn;
 	double	th;
 	char	*p[10];
 	int		w;
@@ -53,7 +63,7 @@ int			key_hook(int keycode, t_data *cub);
 void		w_a_key_conditions(int keycode, t_data *cub);
 void		min_keyhook(int keycode, t_data *cub);
 /**********************chek_walls**************************/
-double		dist_walls(t_data cub);
+double		dist_walls(t_data cub, double *t);
 int			ft_check_d(t_data *cub);
 int			ft_check_a(t_data *cub);
 int			ft_check_wall1(t_data *cub);
@@ -64,8 +74,8 @@ void		init_ang(t_data *cub, int i, int j);
 void		init_cub(t_data *cub);
 void		init_mlx_func(t_data *cub);
 /*********************rays_utils*****************************/
-double		ray_hor(t_data cub);
-double		ray_ver(t_data cub);
+double		ray_hor(t_data cub,double *t);
+double		ray_ver(t_data cub,double *t);
 void		rays(t_data cub, int clr, int i);
 void		func_rays(t_data cub, int clr);
 void		limit_protec(t_data cub, double r_x, double r_y);

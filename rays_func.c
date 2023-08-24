@@ -6,11 +6,23 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 18:02:30 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:50:09 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int 	my_mlx_get_put(t_data data, int x, int y)
+{
+	char	*dst;
+
+	if (x >= 0 && x < data.w_tex && y >= 0 && y < data.h_tex)
+	{
+		dst = data.ad + (y * data.ln + x * (data.bit / 8));
+		return(*(unsigned int *)dst);
+	}
+	return(0);
+}
 
 void	rays(t_data cub, int clr, int i)
 {
@@ -19,17 +31,25 @@ void	rays(t_data cub, int clr, int i)
 	int		start;
 
 	j = 0;
-	cub.t[2] = ray_ver(cub) * cos(cub.th - cub.ang);
-	cub.t[5] = ray_hor(cub) * cos(cub.th - cub.ang);
-	d = dist_walls(cub);
+	cub.t[2] = ray_ver(cub,cub.t) * cos(cub.th - cub.ang);
+	cub.t[5] = ray_hor(cub,cub.t) * cos(cub.th - cub.ang);
+	d = dist_walls(cub, cub.t);
 	start = (cub.h / 2) - (d / 2);
+	//cub.x_tex = (((double)((int)cub.t[0] % S_C)) * cub.w_tex) / S_C;
+	// cub.x_tex = cub.t[0] - (int)(cub.t[0] /  S_C) * cub.w_tex) / S_C;
+	cub.x_tex = (cub.t[0] -  ((int)(cub.t[0] / S_C) * S_C)) / S_C * cub.w_tex;
+	///printf("|0-->%f\n", (double)((int)cub.t[0] % S_C));
+	cub.y_tex = 0;
 	while (j < cub.h)
 	{
-		my_mlx_pixel_put(&cub, i, j, clr);
 		if (j >= start && j <= start + d)
-			clr = 0x696969f;
+		{
+			clr = my_mlx_get_put(cub,cub.x_tex, cub.y_tex);
+			cub.y_tex +=  cub.h_tex / d;
+		}
 		if (j > start + d)
 			clr = 0xD2B48C;
+		my_mlx_pixel_put(&cub, i, j, clr);
 		j++;
 	}
 }

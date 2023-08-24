@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:37:34 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/19 18:06:19 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:07:31 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	utils_w_h(t_data cub, int *i, int *j, double *d)
 		(*j)--;
 }
 
-double	ray_ver(t_data cub)
+double	ray_ver(t_data cub, double *t)
 {
 	double	d[4];
 	int		i;
@@ -53,11 +53,17 @@ double	ray_ver(t_data cub)
 	while (i > 0 && i < (ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
 			/ S_C)) && cub.p[j][i] != '1')
 		utils_w_v(cub, &i, &j, d);
-	limit_protec(cub, d[2], d[3]);
+	// limit_protec(cub, d[2], d[3]);
+	(d[3] > cub.h) && (d[3] = cub.h - S_C);
+	(d[2] > cub.w) && (d[2] = cub.w - S_C);
+	(d[2] < 0) && (d[2] = 0);
+	(d[3] < 0) && (d[3] = 0);
+	t[0] = d[2];
+	t[1] = d[3];
 	return (sqrt(pow(d[2] - cub.p_x, 2) + pow(d[3] - cub.p_y, 2)));
 }
 
-double	ray_hor(t_data cub)
+double	ray_hor(t_data cub, double *t)
 {
 	double	d[4];
 	int		i;
@@ -82,6 +88,12 @@ double	ray_hor(t_data cub)
 	while ((i > 0 && i < ft_strlen(cub.p[0])) && (j > 0 && j < (int)(cub.h
 			/ S_C)) && (cub.p[j][i] != '1'))
 		utils_w_h(cub, &i, &j, d);
-	limit_prot_hor(cub, d[2], d[3]);
+	(d[3] > cub.h) && (d[3] = cub.h - S_C);
+	(d[2] > cub.w) && (d[2] = cub.w - S_C);
+	(d[2] < 0) && (d[2] = 0);
+	(d[3] < 0) && (d[3] = 0);
+	t[3] = d[2];
+	t[4] = d[3];
+	// limit_prot_hor(cub, d[2], d[3]);
 	return (sqrt(pow(d[2] - cub.p_x, 2) + pow(d[3] - cub.p_y, 2)));
 }

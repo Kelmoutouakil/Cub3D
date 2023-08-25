@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:10:16 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/24 17:50:09 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/25 12:14:22 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ void	rays(t_data cub, int clr, int i)
 	cub.t[5] = ray_hor(cub,cub.t) * cos(cub.th - cub.ang);
 	d = dist_walls(cub, cub.t);
 	start = (cub.h / 2) - (d / 2);
-	//cub.x_tex = (((double)((int)cub.t[0] % S_C)) * cub.w_tex) / S_C;
-	// cub.x_tex = cub.t[0] - (int)(cub.t[0] /  S_C) * cub.w_tex) / S_C;
 	cub.x_tex = (cub.t[0] -  ((int)(cub.t[0] / S_C) * S_C)) / S_C * cub.w_tex;
-	///printf("|0-->%f\n", (double)((int)cub.t[0] % S_C));
 	cub.y_tex = 0;
 	while (j < cub.h)
 	{
@@ -58,7 +55,7 @@ void	func_rays(t_data cub, int clr)
 {
 	int		i;
 	double	angle_step;
-
+	//printf("****** %d\n",cub.w);
 	angle_step = (M_PI / 3) / cub.w;
 	i = 0;
 	while (i < cub.w / 2)

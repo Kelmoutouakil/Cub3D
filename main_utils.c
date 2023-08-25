@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 16:36:06 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/24 17:47:07 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/25 12:26:10 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ void	init_cub(t_data *cub)
 		}
 		i++;
 	}
+	cub->h_len = i;
 }
 
 void	init_mlx_func(t_data *cub)
 {
 	cub->mlx = mlx_init();
 	fill_map(cub->p);
-	cub->w = ft_strlen(cub->p[0]) * S_C;
+	//cub->w = ft_strlen(cub->p[0]) * S_C;
+	cub->w = 800;
 	cub->h = 450;
 	cub->mlx_win = mlx_new_window(cub->mlx, cub->w, 450, "cub3D");
 	cub->img = mlx_new_image(cub->mlx, cub->w, cub->h);

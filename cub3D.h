@@ -6,7 +6,7 @@
 /*   By: kelmouto <kelmouto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:36:45 by kelmouto          #+#    #+#             */
-/*   Updated: 2023/08/24 17:50:15 by kelmouto         ###   ########.fr       */
+/*   Updated: 2023/08/25 12:18:07 by kelmouto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ typedef struct l_data
 	int		h;
 	double	t[6];
 	double	ang;
-	int		c;
-	int		sol;
+	int		h_len;
 }			t_data;
 
 /**********************raycasting***************************/
